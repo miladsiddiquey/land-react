@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Ga+Maamli&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body , html {
+  overflow-x: hidden;
+}
+
+.container {
+  width: 1250px;
+  max-width: 100%;
+  padding: 0 20px;
+  margin: auto;
+}
+body {
+  font-family: "Poppins", sans-serif;
+}
+:root {
+  /* ===color===== */
+  --nav-color: #00aaa1;
+  --button-color: #082e35;
+  --button-color: #0ca07b; 
+  --bg-color: #ffffff;
+  --title-color: #141414;
+  --text-color: #2b2b2b;
+  --footer-color: #253d63;
+  --btn-color: #eeb44d;
+  /* ====font-size==== */
+  --font-12px: 12px;
+  --font-14px: 14px;
+  --font-16px: 16px;
+  --font-18px: 18px;
+  --font-20px: 20px;
+  --font-24px: 24px;
+  --font-28px: 28px;
+  --font-32px: 32px;
+  --font-36px: 36px;
+  --font-42px: 42px;
+  --font-46px: 46px;
+  --font-48px: 48px;
+  --font-52px: 52px;
+}
+h1 {
+  font-size: 42;
+  font-weight: 700;
+  line-height: 52px;
+  color: var(--title-color);
+  font-family: "Poppins", sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none !important;
+}
+ul li {
+  list-style: none !important;
+}
+/* ==========Header style Start========= */
+header {
+  background-color: var(--bg-color);
+  padding-top: 10px;
+}
+.header-body {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 30px;
+}
+.logo a {
+  text-transform: uppercase;
+  color: var(--bg-color);
+  font-size: var(--font-28px);
+  font-family: "Baskervville SC", serif;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+.navbar a {
+  color: var(--button-color) !important;
+  font-size: var(--font-18px);
+  line-height: 28px;
+  font-weight: 600;
+}
+.head-btn {
+  background: var(--button-color);
+  width: 155px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 4px;
+}
+.head-btn a {
+  color: var(--bg-color) !important;
+  font-size: var(--font-16px);
+  line-height: 28px;
+  font-weight: 500;
+}
+#menu-btn {
+  color: var(--bg-color);
+  font-size: 20px;
+  display: none;
+}
+/* ==========Header style End========== */
