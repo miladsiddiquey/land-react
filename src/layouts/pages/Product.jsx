@@ -12,7 +12,7 @@ const Product = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [showParPage, setShowParPage] = useState(2);
+  const [showParPage, setShowParPage] = useState(3);
   const [pagination, setPagination] = useState({
     start: 0,
     end: showParPage,
@@ -73,11 +73,21 @@ const Product = () => {
           <p>No products available.</p>
         )}
       </div>
-      <Paginations  
+      {/* <Paginations  
       showParPage={showParPage} 
       onPageinationChange={onPageinationChange}
       total ={productData.length}
-      />
+      /> */}
+
+      {productData.length > 3 && ( // Only render Paginations if there are more than 6 items
+        <Paginations  
+          showParPage={showParPage} 
+          onPageinationChange={onPageinationChange}
+          total={productData.length}
+        />
+      )}
+
+
     </div>
   );
 }

@@ -27,9 +27,11 @@ export default function Paginations({showParPage, onPageinationChange, total}) {
     }
   }
 
+  if (total <= 3) return null;
+
   return (
     <div>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-end">
       <nav aria-label="Page navigation example">
         <ul className="pagination">
           <li className="page-item"><a className="page-link"  onClick={()=>onButtonClick("prev")} >Previous</a></li>
