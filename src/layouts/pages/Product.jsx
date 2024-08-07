@@ -2,11 +2,25 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS if not already done
+import Paginations from '../component/Paginations';
+
+
 
 const Product = () => {
   const [productData, setProductData] = useState([]); // Default to empty array
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [showParPage, setShowParPage] = useState(2);
+  const [pagination, setPagination] = useState({
+    start: 0,
+    end: showParPage,
+  });
+
+  const onPageinationChange = (start, end)=>{
+    setPagination({start: start, end: end});
+  };
 
   useEffect(() => {
     // Fetch data from the API
@@ -29,7 +43,7 @@ const Product = () => {
     <div className="container">
       <div className="row">
         {productData.length > 0 ? (
-          productData.map((product, index) => {
+          productData.slice(pagination.start,pagination.end).map((product, index) => {
             
             // Construct the full URL to the image
             const imageSrc = product.images ? `http://localhost/land/admin/upload_images/${product.images}` : 'http://localhost/land/admin/upload_images/default.jpg';
@@ -59,6 +73,11 @@ const Product = () => {
           <p>No products available.</p>
         )}
       </div>
+      <Paginations  
+      showParPage={showParPage} 
+      onPageinationChange={onPageinationChange}
+      total ={productData.length}
+      />
     </div>
   );
 }

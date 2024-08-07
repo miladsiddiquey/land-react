@@ -375,9 +375,9 @@
     line-height: 25px;
     text-align: center;
   }
-  .active:after {
+  /* .active:after {
     content: "\2212";
-  }
+  } */
   
   /* .accordion-button:not(.collapsed) {
       color: var(--bg-color) !important;
