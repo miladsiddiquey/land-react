@@ -86,7 +86,7 @@ const Home = () => {
   <div className="product pt-5 pb-5">
     <div className="container">
       <h2 className="text-center mb-4 fw-bold" style={{color: "var(--button-color)"}}>Here are a few deals</h2>
-      <div className=" product-content">
+      <div className=" product-content ">
           <Product /> 
       </div>
 

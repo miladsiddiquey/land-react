@@ -27,7 +27,8 @@ const Product = () => {
     fetch('http://localhost/land/admin/api.php')
       .then(response => response.json())
       .then(data => {
-        setProductData(data);
+        const reversedData = data.reverse();
+        setProductData(reversedData);
         setLoading(false);
       })
       .catch(err => {
@@ -49,24 +50,23 @@ const Product = () => {
             const imageSrc = product.images ? `http://localhost/land/admin/upload_images/${product.images}` : 'http://localhost/land/admin/upload_images/default.jpg';
             
             return (
-              <div key={index} className=" col-sm-12 col-md-4  mb-4">
-                <div className="product-box border ">
-                  <img src={imageSrc} alt={product.title || 'Product Image'} className="img-fluid mb-2" />
-                  <div className="product-text">
-                    <h3 style={{ fontSize: 'var(--font-20px)' }}>
-                      {product.title || 'Default Title'}
-                    </h3>
-                    <ul className="list-unstyled">
-                      
-                      <li><b>Status:</b> {product.status || 'Default Status'}</li>
-                      <li><b>State:</b> {product.state || 'Default State'}</li>
-                      <li><b>Size:</b> {product.size || 'Default Size'}</li>
-                      <li><b>Sale Price:</b> {product.sale_price || 'Default Price'}</li>
-                    </ul>
-                    <Link to={`/SinglePage/${product.id}`} className="btn btn-primary">View Details</Link>
-                  </div>
+              <div key={index} className="col-12 col-sm-6 col-md-4 mb-4">
+              <div className="product-box border p-3">
+                <img src={imageSrc} alt={product.title || 'Product Image'} className="img-fluid mb-2" />
+                <div className="product-text">
+                  <h3 style={{ fontSize: 'var(--font-20px)' }}>
+                    {product.title || 'Default Title'}
+                  </h3>
+                  <ul className="list-unstyled">
+                    <li><b>Status:</b> {product.status || 'Default Status'}</li>
+                    <li><b>State:</b> {product.state || 'Default State'}</li>
+                    <li><b>Size:</b> {product.size || 'Default Size'}</li>
+                    <li><b>Sale Price:</b> {product.sale_price || 'Default Price'}</li>
+                  </ul>
+                  <Link to={`/SinglePage/${product.id}`} className="btn btn-primary">View Details</Link>
                 </div>
               </div>
+            </div>
             );
           })
         ) : (

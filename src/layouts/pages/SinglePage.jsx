@@ -1,11 +1,11 @@
-import React , {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaRegClock } from "react-icons/fa";
 import { RiHome4Line } from "react-icons/ri";
 import { IoIosResize } from "react-icons/io";
 import { IoPricetags } from "react-icons/io5";
 import { RiStackshareLine } from "react-icons/ri";
 import Modal from 'react-bootstrap/Modal';
-import { Swiper, SwiperSlide  } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { FaFacebook } from "react-icons/fa";
@@ -17,13 +17,10 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { useParams } from 'react-router-dom';
 
-
 const SinglePage = () => {
     const { id } = useParams();
-    console.log(id);
-
     const [show, setShow] = useState(false);
-    const [singleTD, setSingleTD] = useState(null); // Initialize as an empty object
+    const [singleTD, setSingleTD] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -36,7 +33,6 @@ const SinglePage = () => {
         fetch(url)
             .then(res => {
                 if (res.ok) {
-                    // Check if the response is JSON
                     const contentType = res.headers.get('Content-Type');
                     if (contentType && contentType.includes('application/json')) {
                         return res.json();
@@ -48,8 +44,16 @@ const SinglePage = () => {
                 }
             })
             .then(data => {
-                console.log(data); // Check this in your browser console
-                setSingleTD(data[0]); // Assuming data is an array and you want the first item
+                console.log(data);
+                
+                // Assuming the API response is an array with a single object
+                const item = data[0];
+                
+                // Split slide_img string into an array of image filenames
+                const imageUrls = item.slide_img.split(',').map(filename => `http://localhost/land/admin/upload_images/${filename}`);
+
+                // Set the state with the updated image URLs
+                setSingleTD({ ...item, slide_img: imageUrls });
                 setLoading(false);
             })
             .catch(error => {
@@ -62,6 +66,14 @@ const SinglePage = () => {
     if (error) return <p>Error: {error}</p>;
     if (!singleTD) return <p>No data found</p>;
 
+    // Construct dynamic URLs for sharing
+    const shareUrl = `http://localhost/land/single-page/${id}`;
+    const shareText = encodeURIComponent(`Check out this post: ${singleTD.title}\n${singleTD.description}`);
+
+    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+    const whatsappShareUrl = `https://wa.me/?text=${shareText}`;
+    const instagramShareUrl = `https://www.instagram.com`; // Instagram requires app
+
 
 
   return (
@@ -70,20 +82,18 @@ const SinglePage = () => {
         <div className="row align-items-start ">
             <div className="col-md-9 pe-md-4 mb-4 mb-md-0">
                 <div className="single-box p-3 pb-4">
-                    <Swiper
-                        spaceBetween={20}
-                        pagination={true}
-                        modules={[Pagination]} 
-                        slidesPerView={1}
-                   
+                <Swiper
+                            spaceBetween={20}
+                            pagination={true}
+                            modules={[Pagination]}
+                            slidesPerView={1}
                         >
-                    
-                        <SwiperSlide><img className='w-100' src="https://media.istockphoto.com/id/1437629749/photo/land-plot-in-aerial-view-in-chiang-mai-of-thailand.webp?b=1&s=170667a&w=0&k=20&c=Xsz0O363gGwnvhI3L2d29D_Dr4qBcrGVdUmvvTXoMUo=" alt="" /></SwiperSlide>
-                        <SwiperSlide><img className='w-100' src="https://media.istockphoto.com/id/1437629749/photo/land-plot-in-aerial-view-in-chiang-mai-of-thailand.webp?b=1&s=170667a&w=0&k=20&c=Xsz0O363gGwnvhI3L2d29D_Dr4qBcrGVdUmvvTXoMUo=" alt="" /></SwiperSlide>
-                        <SwiperSlide><img className='w-100' src="https://media.istockphoto.com/id/1437629749/photo/land-plot-in-aerial-view-in-chiang-mai-of-thailand.webp?b=1&s=170667a&w=0&k=20&c=Xsz0O363gGwnvhI3L2d29D_Dr4qBcrGVdUmvvTXoMUo=" alt="" /></SwiperSlide>
-                        <SwiperSlide><img className='w-100' src="https://media.istockphoto.com/id/1437629749/photo/land-plot-in-aerial-view-in-chiang-mai-of-thailand.webp?b=1&s=170667a&w=0&k=20&c=Xsz0O363gGwnvhI3L2d29D_Dr4qBcrGVdUmvvTXoMUo=" alt="" /></SwiperSlide>
-                        
-                    </Swiper>
+                            {singleTD.slide_img.map((img, index) => (
+                                <SwiperSlide key={index}>
+                                    <img className='w-100' src={img} alt="slide img" />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
 
                     <h4 className='mt-4 mb-1' style={{color: "var(--button-color)" , fontSize: "var(--font-24px)"}}>{singleTD.title}</h4>
                     <small className='mb-2 d-block' style={{color: "#777" , fontSize: "var(--font-12px)"}}>Posted on {singleTD.date}, Alhamra, Sylhet</small>
@@ -107,9 +117,9 @@ const SinglePage = () => {
                                 <RiStackshareLine />
                             </Dropdown.Toggle>
                             <Dropdown.Menu className='dropdown-box'>
-                                <Dropdown.Item href="#/action-1"><FaFacebook/> Facebook</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2"><IoLogoWhatsapp/> Whatsapp</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3"><FaSquareInstagram/> Instagram</Dropdown.Item>
+                                <Dropdown.Item href={facebookShareUrl} target="_blank" rel="noopener noreferrer"><FaFacebook/> Facebook</Dropdown.Item>
+                                <Dropdown.Item href={whatsappShareUrl} target="_blank" rel="noopener noreferrer"><IoLogoWhatsapp/> Whatsapp</Dropdown.Item>
+                                <Dropdown.Item href={instagramShareUrl} target="_blank" rel="noopener noreferrer"><FaSquareInstagram/> Instagram</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                         <button className='btn btn-success'  style={{background: "var(--button-color)" , fontSize: "var(--font-14px)"}} onClick={handleShow}>

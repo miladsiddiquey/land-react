@@ -1228,4 +1228,17 @@
       --font-52px: 40px;
     }
   }
+  .product-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
   
+  .product-text {
+    flex: 1;
+  }
+  
+  .product-box img {
+    max-width: 100%;
+    height: auto;
+  }
