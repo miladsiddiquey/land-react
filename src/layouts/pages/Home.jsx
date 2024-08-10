@@ -14,15 +14,6 @@ const Home = () => {
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedType, setSelectedType] = useState('');
 
-  // const [formType] = useState([
-  //   { id: 1, name: "Home" },
-  //   { id: 2, name: "Commercial Rent" },
-  //   { id: 3, name: "Home" },
-  //   { id: 4, name: "Commercial Rent" },
-  //   { id: 5, name: "Home" },
-  //   { id: 6, name: "Commercial Rent" },
-  // ]);
-
   useEffect(() => {
     // Fetch locations for the filter dropdown
     fetch('http://localhost/land/admin/search_api.php')
@@ -36,7 +27,7 @@ const Home = () => {
       .then(data => {
         const reversedData = data.reverse();
         setAllData(reversedData);
-        setFilteredData(data); // Initialize filtered data with all data
+        setFilteredData(reversedData); // Initialize filtered data with all data
       })
       .catch(error => console.error('Fetch error:', error));
   }, []);
@@ -56,12 +47,16 @@ const Home = () => {
     const filtered = allData.filter(item => {
       return (
         (selectedLocation ? item.state === selectedLocation : true) &&
-        (selectedType ? item.type === selectedType : true)
+        (selectedType ? item.select_type === selectedType : true)
       );
     });
 
     setFilteredData(filtered); // Update the filtered data
   };
+
+  // Get unique values for the dropdowns
+  const uniqueLocations = [...new Set(allData.map(item => item.state))];
+  const uniqueTypes = [...new Set(allData.map(item => item.select_type))];
 
   return (
     <>
@@ -73,8 +68,8 @@ const Home = () => {
               <div className="moonray-form">
                 <select name="filterLocation" onChange={handleFilterChange} value={selectedLocation}>
                   <option value="">Location</option>
-                  {filteredData.map(item => (
-                    <option key={item.id} value={item.state}>{item.state}</option>
+                  {uniqueLocations.map((location, index) => (
+                    <option key={index} value={location}>{location}</option>
                   ))}
                 </select>
               </div>
@@ -82,8 +77,8 @@ const Home = () => {
               <div className="moonray-form product-search-input">
                 <select name="filterType" onChange={handleFilterChange} value={selectedType} style={{ width: 300 }}>
                   <option value="">Select Type</option>
-                  {filteredData.map(item => (
-                    <option value={item.select_type} key={item.id}>{item.select_type}</option>
+                  {uniqueTypes.map((type, index) => (
+                    <option value={type} key={index}>{type}</option>
                   ))}
                 </select>
               </div>
