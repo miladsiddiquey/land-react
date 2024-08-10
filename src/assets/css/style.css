@@ -270,6 +270,40 @@
   }
   
   /* =============about style start========= */
+/* Default order */
+.about-left, .about-right {
+  display: flex;
+  align-items: center;
+}
+
+.about-left {
+  order: 1;
+}
+
+.about-right {
+  order: 2;
+}
+
+/* For even-numbered items */
+.about-sec.even .about-left {
+  order: 1;
+}
+
+.about-sec.even .about-right {
+  order: 2;
+}
+
+/* For odd-numbered items */
+.about-sec.odd .about-left {
+  order: 2;
+}
+
+.about-sec.odd .about-right {
+  order: 1;
+}
+
+
+
   .about-sec {
     padding-top: 80px;
     padding-bottom: 80px;
