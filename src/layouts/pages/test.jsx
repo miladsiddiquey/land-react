@@ -252,3 +252,45 @@ const SinglePage = () => {
 }
 
 export default SinglePage;
+
+
+
+
+// product card 
+
+<div className="row">
+{productData.length > 0 ? (
+  productData.slice(pagination.start, pagination.end).map((product, index) => {
+    const imageSrc = product.images ? `http://localhost/land/admin/upload_images/${product.images}` : 'http://localhost/land/admin/upload_images/default.jpg';
+    return (
+      <div key={index} className="col-md-4 col-sm-6">
+        <div className="product-box border p-3">
+          <img src={imageSrc} alt={product.title || 'Product Image'} className="img-fluid mb-2" />
+          <div className="product-text">
+            <h3 style={{ fontSize: 'var(--font-20px)' }}>
+              {product.title || 'Default Title'}
+            </h3>
+            <ul className="list-unstyled">
+              <li><b>Status:</b> {product.status || 'Default Status'}</li>
+              <li><b>State:</b> {product.state || 'Default State'}</li>
+              <li><b>Size:</b> {product.size || 'Default Size'}</li>
+              <li><b>Sale Price:</b> {product.sale_price || 'Default Price'}</li>
+            </ul>
+            <Link to={`/SinglePage/${product.id}`} className="btn btn-primary">View Details</Link>
+          </div>
+        </div>
+      </div>
+    );
+  })
+) : (
+  <p>No products available.</p>
+)}
+</div>
+
+{productData.length > showParPage && (
+<Paginations
+  showParPage={showParPage}
+  onPageinationChange={onPageinationChange}
+  total={productData.length}
+/>
+)}

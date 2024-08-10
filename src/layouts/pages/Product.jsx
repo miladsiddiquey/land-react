@@ -42,12 +42,14 @@ const Product = ({ data: propData }) => {
 
   return (
     <div className="container">
-      <div className="row">
+      <div className="row d-flex justify-content-center">
         {productData.length > 0 ? (
           productData.slice(pagination.start, pagination.end).map((product, index) => {
-            const imageSrc = product.images ? `http://localhost/land/admin/upload_images/${product.images}` : 'http://localhost/land/admin/upload_images/default.jpg';
+            const imageSrc = product.images ? 
+              `http://localhost/land/admin/upload_images/${product.images}` : 
+              'http://localhost/land/admin/upload_images/default.jpg';
             return (
-              <div key={index} className="col-12 col-sm-6 col-md-4 mb-4">
+              <div key={index} className="col-sm-12 col-md-6 col-lg-4 mt-5 mb-5 ">
                 <div className="product-box border p-3">
                   <img src={imageSrc} alt={product.title || 'Product Image'} className="img-fluid mb-2" />
                   <div className="product-text">
@@ -80,6 +82,5 @@ const Product = ({ data: propData }) => {
       )}
     </div>
   );
-}
-
+};
 export default Product;
