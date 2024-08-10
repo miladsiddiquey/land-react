@@ -72,6 +72,24 @@ const SinglePage = () => {
             });
     }, [id]);
 
+const [apiData, setApiData]  = useState([]);
+
+    useEffect(() => {
+      
+          fetch('http://localhost/land/admin/ad_api.php')
+            .then(response => response.json())
+            .then(data => {
+              const apirevers = data.reverse(); // Ensure latest products are first
+              setApiData(apirevers);
+            })
+
+      }, [apiData]);
+
+
+
+
+
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setForm(prevForm => ({
@@ -254,15 +272,22 @@ const SinglePage = () => {
                     </div>
                 </div>
                 <div className="col-md-3 single-right">
-                    <div className='mb-3'>
-                        <img className='w-100' src="https://varanibo.com/assets/img/uploaded/ads/202405070838Add-Banner-For-Varanibo-2.jpg" alt="" />
+
+                {
+                    apiData.map((api, index)=>{
+                        const apiImage = api.ad_img ? `http://localhost/land/admin/upload_images/${api.ad_img}` : 'http://localhost/land/admin/upload_images/default.jpg';
+                        return(
+                        <div key={index} className='mb-3'>
+                        <a href={api.link} target='blanc'>
+                        <img className='w-100' src={apiImage} alt="" />
+                        </a>
                     </div>
-                    <div className='mb-3'>
-                        <img className='w-100' src="https://varanibo.com/assets/img/uploaded/ads/202405070838Add-Banner-For-Varanibo-2.jpg" alt="" />
-                    </div>
-                    <div className='mb-3'>
-                        <img className='w-100' src="https://varanibo.com/assets/img/uploaded/ads/202405070838Add-Banner-For-Varanibo-2.jpg" alt="" />
-                    </div>
+                        )
+                    })
+                }
+
+                    
+                    
                 </div>
             </div>
         </div>

@@ -14,14 +14,14 @@ const Home = () => {
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedType, setSelectedType] = useState('');
 
-  const [formType] = useState([
-    { id: 1, name: "Home" },
-    { id: 2, name: "Commercial Rent" },
-    { id: 3, name: "Home" },
-    { id: 4, name: "Commercial Rent" },
-    { id: 5, name: "Home" },
-    { id: 6, name: "Commercial Rent" },
-  ]);
+  // const [formType] = useState([
+  //   { id: 1, name: "Home" },
+  //   { id: 2, name: "Commercial Rent" },
+  //   { id: 3, name: "Home" },
+  //   { id: 4, name: "Commercial Rent" },
+  //   { id: 5, name: "Home" },
+  //   { id: 6, name: "Commercial Rent" },
+  // ]);
 
   useEffect(() => {
     // Fetch locations for the filter dropdown
@@ -82,8 +82,8 @@ const Home = () => {
               <div className="moonray-form product-search-input">
                 <select name="filterType" onChange={handleFilterChange} value={selectedType} style={{ width: 300 }}>
                   <option value="">Select Type</option>
-                  {formType.map(item => (
-                    <option value={item.name} key={item.id}>{item.name}</option>
+                  {filteredData.map(item => (
+                    <option value={item.select_type} key={item.id}>{item.select_type}</option>
                   ))}
                 </select>
               </div>
