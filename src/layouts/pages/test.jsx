@@ -20,12 +20,11 @@ import { useParams } from 'react-router-dom';
 const SinglePage = () => {
     const { id } = useParams();
     const [show, setShow] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false); // State for success modal
     const [singleTD, setSingleTD] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [form, setForm] = useState({
-        apnId: '',
+        apnId: '',  // Initialize apnId
         name: '',
         email: '',
         phone: '',
@@ -34,7 +33,6 @@ const SinglePage = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const handleCloseSuccess = () => setShowSuccess(false);
 
     useEffect(() => {
         const url = `http://localhost/land/admin/api_single.php?id=${id}`;
@@ -93,8 +91,8 @@ const SinglePage = () => {
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
+            // Handle success, maybe close modal and reset form
             setShow(false);
-            setShowSuccess(true); // Show success modal
             setForm(prevForm => ({
                 ...prevForm,
                 name: '',
@@ -234,22 +232,6 @@ const SinglePage = () => {
                                     </Modal.Footer>
                                 </form>
                             </Modal>
-
-                            {/* Success Modal */}
-                            <Modal show={showSuccess} onHide={handleCloseSuccess}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Thank You!</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <p>Your message has been successfully submitted. We will get back to you soon.</p>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <button className='btn btn-success' style={{background: "var(--button-color)" , fontSize: "var(--font-14px)"}} onClick={handleCloseSuccess}>
-                                        Close
-                                    </button>
-                                </Modal.Footer>
-                            </Modal>
-
                         </div>
                     </div>
                 </div>
