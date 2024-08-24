@@ -41,17 +41,17 @@ const Product = ({ data: propData }) => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="container">
-      <div className="row d-flex justify-content-center">
+    <>
+      <div className="product-content">
         {productData.length > 0 ? (
           productData.slice(pagination.start, pagination.end).map((product, index) => {
             const imageSrc = product.images ? 
               `http://localhost/land/admin/upload_images/${product.images}` : 
               'http://localhost/land/admin/upload_images/default.jpg';
             return (
-              <div key={index} className="col-sm-12 col-md-6 col-lg-4 mt-5 mb-5 ">
-                <div className="product-box border p-3">
-                  <img src={imageSrc} alt={product.title || 'Product Image'} className="img-fluid mb-2" />
+              
+                <div key={index} className="product-box border p-3">
+                  <img src={imageSrc} alt={product.title || 'Product Image'} className="img-fluid mb-2"  style={{aspectRatio: "16/9"}} />
                   <div className="product-text">
                     <h3 style={{ fontSize: 'var(--font-20px)' }}>
                       {product.title || 'Default Title'}
@@ -65,7 +65,7 @@ const Product = ({ data: propData }) => {
                     <Link to={`/SinglePage/${product.id}`} className="btn btn-primary">View Details</Link>
                   </div>
                 </div>
-              </div>
+         
             );
           })
         ) : (
@@ -80,7 +80,7 @@ const Product = ({ data: propData }) => {
           total={productData.length}
         />
       )}
-    </div>
+    </>
   );
 };
 export default Product;
